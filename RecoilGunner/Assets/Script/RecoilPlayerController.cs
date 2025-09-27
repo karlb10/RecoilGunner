@@ -28,7 +28,7 @@ public class RecoilPlayerController : MonoBehaviour
     public float aimLineLength = 5f;
 
     [Header("Input Settings")]
-    public KeyCode shootKey = KeyCode.Space;
+    //public KeyCode shootKey = KeyCode.Mouse0;
     public bool useMouseAiming = true;
 
     private Rigidbody2D rb;
@@ -70,19 +70,19 @@ public class RecoilPlayerController : MonoBehaviour
     void HandleInput()
     {
         // Check if starting to charge
-        if (Input.GetKeyDown(shootKey))
+        if (Input.GetButtonDown("Fire1"))
         {
             StartCharging();
         }
 
         // Check if holding to charge
-        if (Input.GetKey(shootKey) && isCharging)
+        if (Input.GetButton("Fire1") && isCharging)
         {
             ContinueCharging();
         }
 
         // Check if releasing to shoot
-        if (Input.GetKeyUp(shootKey) && isCharging)
+        if (Input.GetButtonUp("Fire1") && isCharging)
         {
             ReleaseShotgun();
         }
