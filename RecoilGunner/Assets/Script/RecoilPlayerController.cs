@@ -28,7 +28,6 @@ public class RecoilPlayerController : MonoBehaviour
     public float aimLineLength = 5f;
 
     [Header("Input Settings")]
-    //public KeyCode shootKey = KeyCode.Mouse0;
     public bool useMouseAiming = true;
 
     private Rigidbody2D rb;
@@ -52,6 +51,21 @@ public class RecoilPlayerController : MonoBehaviour
 
     void Update()
     {
+        // CHECK IF GAME IS OVER - Stop all input processing
+        if (GameManager.Instance != null && GameManager.Instance.gameOver)
+        {
+            // Hide all visual effects when game is over
+            if (aimLine != null && aimLine.enabled)
+            {
+                aimLine.enabled = false;
+            }
+            if (chargeCircle != null && chargeCircle.gameObject.activeInHierarchy)
+            {
+                chargeCircle.gameObject.SetActive(false);
+            }
+            return; // Exit early - no input processing
+        }
+
         HandleInput();
         HandleAiming();
         UpdateVisualEffects();
@@ -60,6 +74,9 @@ public class RecoilPlayerController : MonoBehaviour
 
     void LimitSpeed()
     {
+        // Don't limit speed if game is over
+        if (GameManager.Instance != null && GameManager.Instance.gameOver) return;
+
         // Limit maximum speed
         if (rb.linearVelocity.magnitude > maxSpeed)
         {
@@ -69,6 +86,9 @@ public class RecoilPlayerController : MonoBehaviour
 
     void HandleInput()
     {
+        // Double check - no input if game is over
+        if (GameManager.Instance != null && GameManager.Instance.gameOver) return;
+
         // Check if starting to charge
         if (Input.GetButtonDown("Fire1"))
         {
@@ -90,6 +110,9 @@ public class RecoilPlayerController : MonoBehaviour
 
     void HandleAiming()
     {
+        // Don't aim if game is over
+        if (GameManager.Instance != null && GameManager.Instance.gameOver) return;
+
         if (useMouseAiming)
         {
             // Aim towards mouse position
@@ -119,6 +142,9 @@ public class RecoilPlayerController : MonoBehaviour
 
     void StartCharging()
     {
+        // Don't charge if game is over
+        if (GameManager.Instance != null && GameManager.Instance.gameOver) return;
+
         isCharging = true;
         chargeTime = 0f;
 
@@ -138,12 +164,26 @@ public class RecoilPlayerController : MonoBehaviour
 
     void ContinueCharging()
     {
+        // Don't continue charging if game is over
+        if (GameManager.Instance != null && GameManager.Instance.gameOver)
+        {
+            isCharging = false;
+            return;
+        }
+
         chargeTime += Time.deltaTime;
         chargeTime = Mathf.Clamp(chargeTime, 0f, maxChargeTime);
     }
 
     void ReleaseShotgun()
     {
+        // Don't shoot if game is over
+        if (GameManager.Instance != null && GameManager.Instance.gameOver)
+        {
+            isCharging = false;
+            return;
+        }
+
         isCharging = false;
 
         // Hide visual effects
@@ -167,6 +207,8 @@ public class RecoilPlayerController : MonoBehaviour
 
     void FireChargedShotgun()
     {
+        // Don't fire if game is over
+        if (GameManager.Instance != null && GameManager.Instance.gameOver) return;
         if (aimDirection == Vector2.zero) return;
 
         // Calculate charge multiplier (0 to 1)
@@ -225,6 +267,7 @@ public class RecoilPlayerController : MonoBehaviour
             aimLine.startWidth = 0.05f;
             aimLine.endWidth = 0.02f;
             aimLine.positionCount = 2;
+            aimLine.sortingOrder = 1; // Set render order to 1
             aimLine.enabled = false;
         }
 
@@ -244,6 +287,7 @@ public class RecoilPlayerController : MonoBehaviour
 
                 LineRenderer circleRenderer = singleCircle.AddComponent<LineRenderer>();
                 circleRenderer.material = new Material(Shader.Find("Sprites/Default"));
+                circleRenderer.sortingOrder = 1; // Set render order to 1
 
                 // Different colors and sizes for each circle
                 Color circleColor = Color.Lerp(Color.cyan, Color.white, (float)circleIndex / 3f);
@@ -276,6 +320,9 @@ public class RecoilPlayerController : MonoBehaviour
 
     void UpdateVisualEffects()
     {
+        // Don't update visuals if game is over
+        if (GameManager.Instance != null && GameManager.Instance.gameOver) return;
+
         // Update aim line
         if (aimLine != null && aimLine.enabled && aimDirection != Vector2.zero)
         {

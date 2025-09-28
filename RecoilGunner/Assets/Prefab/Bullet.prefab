@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7508546071886914093}
   m_Layer: 0
   m_Name: Bullet
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,7 +105,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -9095717837082945937, guid: ecc72d9a7b24cc945811085d49bf84ee, type: 3}
   m_Color: {r: 0.4716981, g: 0.14907439, b: 0.21215145, a: 1}
   m_FlipX: 0
@@ -147,7 +147,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -171,3 +171,4 @@ MonoBehaviour:
   destroyOnHit: 1
   hitEffectPrefab: {fileID: 0}
   trail: {fileID: 0}
+  showDebugInfo: 0

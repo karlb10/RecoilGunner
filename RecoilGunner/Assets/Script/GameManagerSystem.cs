@@ -1,5 +1,6 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -16,19 +17,21 @@ public class GameManager : MonoBehaviour
     public int currentWave = 1;
     public float timeBetweenWaves = 5f;
     public int baseEnemiesPerWave = 3;
-    public float waveMultiplier = 1.2f;
+    public float waveMultiplier = 1.3f;
 
     [Header("Enemy Spawning")]
+    public Enemy enemyPrefab;
     public Transform[] spawnPoints;
-    public float spawnRadius = 10f;
-    public float enemySpawnDelay = 1f;
+    public float enemySpawnDelay = 0.6f;
+    [Header("Spawn Settings")]
+    public float spawnBorderBuffer = 2f; // Distance above screen to spawn enemies
 
     [Header("UI References")]
     public GameObject gameOverUI;
     public GameObject pauseMenuUI;
-    public TMPro.TextMeshProUGUI scoreText;
-    public TMPro.TextMeshProUGUI waveText;
-    public TMPro.TextMeshProUGUI healthText;
+    public TMP_Text scoreText;
+    public TMP_Text waveText;
+    public TMP_Text healthText;
 
     private int enemiesRemaining;
     private float waveTimer;
@@ -39,25 +42,14 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        // Singleton pattern
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
     }
 
     void Start()
     {
-        // Load high score
         highScore = PlayerPrefs.GetInt("HighScore", 0);
 
-        // Find player health component
         playerHealth = FindObjectOfType<PlayerHealth>();
         if (playerHealth != null)
         {
@@ -65,11 +57,14 @@ public class GameManager : MonoBehaviour
             playerHealth.OnPlayerDied.AddListener(GameOver);
         }
 
-        // Initialize UI
+        // Validate enemy prefab
+        if (enemyPrefab == null)
+        {
+            Debug.LogError("❌ Enemy Prefab is not assigned in GameManager! Please assign it in the inspector.");
+        }
+
         UpdateScoreUI();
         UpdateWaveUI();
-
-        // Start the game and first wave
         StartGame();
     }
 
@@ -77,24 +72,17 @@ public class GameManager : MonoBehaviour
     {
         if (gameOver) return;
 
-        // Pause game
         if (Input.GetKeyDown(KeyCode.Escape))
-        {
             TogglePause();
-        }
 
-        // Check if wave is complete
+        enemiesRemaining = FindObjectsOfType<Enemy>().Length;
+
         if (gameStarted && !spawningWave && enemiesRemaining <= 0)
         {
             waveTimer -= Time.deltaTime;
             if (waveTimer <= 0)
-            {
                 NextWave();
-            }
         }
-
-        // Update enemy count
-        UpdateEnemyCount();
     }
 
     public void StartGame()
@@ -103,43 +91,15 @@ public class GameManager : MonoBehaviour
         gameOver = false;
         currentScore = 0;
         currentWave = 1;
-
         UpdateScoreUI();
         UpdateWaveUI();
-
-        if (gameOverUI != null)
-            gameOverUI.SetActive(false);
-    }
-
-    public void GameOver()
-    {
-        gameOver = true;
-        gameStarted = false;
-
-        // Check for high score
-        if (currentScore > highScore)
-        {
-            highScore = currentScore;
-            PlayerPrefs.SetInt("HighScore", highScore);
-            PlayerPrefs.Save();
-        }
-
-        if (gameOverUI != null)
-            gameOverUI.SetActive(true);
-
-        Debug.Log($"Game Over! Final Score: {currentScore}");
-    }
-
-    public void RestartGame()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (gameOverUI != null) gameOverUI.SetActive(false);
+        StartWave();
     }
 
     public void AddScore(int points)
     {
         if (gameOver) return;
-
         currentScore += points;
         UpdateScoreUI();
     }
@@ -148,124 +108,84 @@ public class GameManager : MonoBehaviour
     {
         spawningWave = true;
         int enemiesToSpawn = Mathf.RoundToInt(baseEnemiesPerWave * Mathf.Pow(waveMultiplier, currentWave - 1));
-
+        Debug.Log($"🌊 Starting Wave {currentWave} with {enemiesToSpawn} enemies");
         StartCoroutine(SpawnWaveCoroutine(enemiesToSpawn));
-
-        Debug.Log($"Starting Wave {currentWave} with {enemiesToSpawn} enemies");
     }
 
     System.Collections.IEnumerator SpawnWaveCoroutine(int enemyCount)
     {
         for (int i = 0; i < enemyCount; i++)
         {
-            SpawnRandomEnemy();
+            SpawnEnemy();
             yield return new WaitForSeconds(enemySpawnDelay);
         }
 
         spawningWave = false;
         waveTimer = timeBetweenWaves;
+        Debug.Log($"✅ Wave {currentWave} spawning complete! Next wave in {timeBetweenWaves} seconds");
     }
 
-    void SpawnRandomEnemy()
+    void SpawnEnemy()
     {
-        try
+        if (enemyPrefab == null)
         {
-            // Create a basic cube enemy if no prefab exists
-            GameObject enemy = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            if (enemy == null)
-            {
-                Debug.LogError("Failed to create enemy cube!");
-                return;
-            }
-
-            enemy.name = "Enemy_" + Random.Range(1000, 9999);
-            enemy.tag = "Enemy";
-
-            // Remove the default BoxCollider (3D) that comes with primitives
-            BoxCollider boxCollider3D = enemy.GetComponent<BoxCollider>();
-            if (boxCollider3D != null)
-            {
-                DestroyImmediate(boxCollider3D);
-            }
-
-            // Add 2D components in the correct order
-            Rigidbody2D rb = enemy.AddComponent<Rigidbody2D>();
-            rb.gravityScale = 0f;
-            rb.linearDamping = 2f;
-            rb.angularDamping = 5f;
-
-            // Add 2D collider
-            BoxCollider2D collider2D = enemy.AddComponent<BoxCollider2D>();
-            collider2D.isTrigger = true;
-
-            // Set position first, then add Enemy script
-            Vector3 spawnPos = GetRandomSpawnPosition();
-            enemy.transform.position = spawnPos;
-            enemy.transform.localScale = Vector3.one * 0.5f;
-
-            // Add Enemy script last
-            Enemy enemyScript = enemy.AddComponent<Enemy>();
-
-            // Make it red
-            Renderer renderer = enemy.GetComponent<Renderer>();
-            if (renderer != null && renderer.material != null)
-            {
-                renderer.material.color = Color.red;
-            }
-
-            Debug.Log($"Enemy '{enemy.name}' spawned at {spawnPos} with Rigidbody2D: {rb != null}");
+            Debug.LogError("❌ No Enemy Prefab assigned in GameManager!");
+            return;
         }
-        catch (System.Exception e)
+
+        Vector3 spawnPos = GetValidSpawnPosition();
+
+        if (spawnPos != Vector3.zero)
         {
-            Debug.LogError($"Error spawning enemy: {e.Message}");
+            Enemy newEnemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+            newEnemy.name = $"Enemy_Wave{currentWave}_{Random.Range(1000, 9999)}";
+            Debug.Log($"👹 Spawned enemy at {spawnPos}");
+        }
+        else
+        {
+            Debug.LogWarning("⚠️ Could not find valid spawn position for enemy!");
         }
     }
 
-    Vector3 GetRandomSpawnPosition()
+    Vector3 GetValidSpawnPosition()
     {
-        // If spawn points are defined, use them
+        // Method 1: Use assigned spawn points if available
         if (spawnPoints != null && spawnPoints.Length > 0)
         {
-            Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-            if (spawnPoint != null)
+            // Filter out null spawn points
+            var validSpawnPoints = System.Array.FindAll(spawnPoints, point => point != null);
+            if (validSpawnPoints.Length > 0)
             {
-                return spawnPoint.position;
+                Transform chosenPoint = validSpawnPoints[Random.Range(0, validSpawnPoints.Length)];
+                return chosenPoint.position;
             }
         }
 
-        // Get camera bounds for scene boundaries
+        // Method 2: Always spawn at the top of the scene
+        return GetTopSpawnPosition();
+    }
+
+    Vector3 GetTopSpawnPosition()
+    {
         Camera cam = Camera.main;
-        if (cam != null)
+        if (cam == null)
         {
-            // Get screen boundaries in world space
-            float camHeight = cam.orthographicSize * 2f;
-            float camWidth = camHeight * cam.aspect;
-
-            // Spawn within camera bounds but not too close to center
-            float spawnMargin = 2f; // Distance from screen edge
-            float minDistanceFromCenter = 4f; // Minimum distance from center
-
-            Vector3 spawnPos;
-            int attempts = 0;
-
-            do
-            {
-                // Random position within camera bounds
-                float x = Random.Range(-camWidth / 2f + spawnMargin, camWidth / 2f - spawnMargin);
-                float y = Random.Range(-camHeight / 2f + spawnMargin, camHeight / 2f - spawnMargin);
-                spawnPos = cam.transform.position + new Vector3(x, y, 0);
-                spawnPos.z = 0; // Ensure 2D positioning
-
-                attempts++;
-            }
-            while (Vector3.Distance(spawnPos, cam.transform.position) < minDistanceFromCenter && attempts < 10);
-
-            return spawnPos;
+            Debug.LogError("❌ No main camera found!");
+            return Vector3.zero;
         }
 
-        // Fallback: spawn in a small area around origin
-        Vector2 fallbackDirection = Random.insideUnitCircle.normalized;
-        return (Vector3)(fallbackDirection * 5f);
+        float camHeight = cam.orthographicSize * 2f;
+        float camWidth = camHeight * cam.aspect;
+
+        // Spawn at the top of the screen, with random X position
+        Vector3 spawnPos = new Vector3(
+            Random.Range(-camWidth / 2f + 1f, camWidth / 2f - 1f), // Random X within screen bounds (with small buffer)
+            cam.transform.position.y + camHeight / 2f + spawnBorderBuffer, // Always at the top
+            0
+        );
+
+        Debug.Log($"👹 Spawning enemy at top: {spawnPos}");
+        return spawnPos;
     }
 
     void NextWave()
@@ -275,9 +195,83 @@ public class GameManager : MonoBehaviour
         StartWave();
     }
 
-    void UpdateEnemyCount()
+    public void GameOver()
     {
-        enemiesRemaining = FindObjectsOfType<Enemy>().Length;
+        if (gameOver) return; // Prevent multiple game over calls
+
+        gameOver = true;
+        gameStarted = false;
+
+        // STOP THE GAME - but keep UI functional
+        Time.timeScale = 0f; // This will stop physics and most game logic
+
+        // Camera shake for dramatic effect (works with unscaled time)
+        if (CameraShake.Instance != null)
+        {
+            CameraShake.Instance.ShakeGameOver();
+        }
+
+        // Update high score
+        if (currentScore > highScore)
+        {
+            highScore = currentScore;
+            PlayerPrefs.SetInt("HighScore", highScore);
+            PlayerPrefs.Save(); // Save immediately
+        }
+
+        // Show game over UI
+        if (gameOverUI != null)
+        {
+            gameOverUI.SetActive(true);
+        }
+
+        // Disable all enemies completely
+        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        foreach (Enemy enemy in enemies)
+        {
+            if (enemy != null)
+            {
+                enemy.enabled = false; // Disable the enemy script completely
+                Rigidbody2D enemyRb = enemy.GetComponent<Rigidbody2D>();
+                if (enemyRb != null)
+                {
+                    enemyRb.linearVelocity = Vector2.zero;
+                    enemyRb.angularVelocity = 0f;
+                    enemyRb.isKinematic = true; // Stop all physics
+                }
+            }
+        }
+
+        // Disable player controls completely
+        RecoilPlayerController playerController = FindObjectOfType<RecoilPlayerController>();
+        if (playerController != null)
+        {
+            playerController.enabled = false; // Disable player script completely
+            Rigidbody2D playerRb = playerController.GetComponent<Rigidbody2D>();
+            if (playerRb != null)
+            {
+                playerRb.linearVelocity = Vector2.zero;
+                playerRb.angularVelocity = 0f;
+                playerRb.isKinematic = true; // Stop all physics
+            }
+        }
+
+        // Stop all bullets
+        Bullet[] bullets = FindObjectsOfType<Bullet>();
+        foreach (Bullet bullet in bullets)
+        {
+            if (bullet != null)
+            {
+                Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
+                if (bulletRb != null)
+                {
+                    bulletRb.linearVelocity = Vector2.zero;
+                    bulletRb.isKinematic = true;
+                }
+            }
+        }
+
+        Debug.Log($"💀 GAME OVER! Everything stopped. Final Score: {currentScore}, High Score: {highScore}");
     }
 
     void UpdateScoreUI()
@@ -302,8 +296,28 @@ public class GameManager : MonoBehaviour
     {
         gamePaused = !gamePaused;
         Time.timeScale = gamePaused ? 0f : 1f;
-
         if (pauseMenuUI != null)
             pauseMenuUI.SetActive(gamePaused);
+    }
+
+    // Helper method to restart the game
+    public void RestartGame()
+    {
+        Time.timeScale = 1f; // Resume normal time
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    // Helper method to quit game
+    public void QuitGame()
+    {
+        Time.timeScale = 1f; // Resume normal time before quitting
+        Application.Quit();
+    }
+
+    // Debug method to manually spawn an enemy
+    [ContextMenu("Spawn Test Enemy")]
+    public void SpawnTestEnemy()
+    {
+        SpawnEnemy();
     }
 }

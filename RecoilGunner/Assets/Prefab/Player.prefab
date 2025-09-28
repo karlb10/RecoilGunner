@@ -270,6 +270,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 413887364657054632}
   hitColor: {r: 1, g: 0, b: 0, a: 1}
   flashSpeed: 10
+  uiHealthBar: {fileID: 0}
   OnHealthChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -304,7 +305,7 @@ MonoBehaviour:
   chargedBulletSpeed: 25
   aimLine: {fileID: 0}
   chargeCircle: {fileID: 0}
-  aimLineLength: 5
+  aimLineLength: 10
   useMouseAiming: 1
 --- !u!1 &4468516552061040747
 GameObject:
