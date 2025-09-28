@@ -233,17 +233,39 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        // Otherwise, spawn around the player at spawn radius
-        GameObject player = GameObject.FindWithTag("Player");
-        if (player != null)
+        // Get camera bounds for scene boundaries
+        Camera cam = Camera.main;
+        if (cam != null)
         {
-            Vector2 randomDirection = Random.insideUnitCircle.normalized;
-            return player.transform.position + (Vector3)(randomDirection * spawnRadius);
+            // Get screen boundaries in world space
+            float camHeight = cam.orthographicSize * 2f;
+            float camWidth = camHeight * cam.aspect;
+
+            // Spawn within camera bounds but not too close to center
+            float spawnMargin = 2f; // Distance from screen edge
+            float minDistanceFromCenter = 4f; // Minimum distance from center
+
+            Vector3 spawnPos;
+            int attempts = 0;
+
+            do
+            {
+                // Random position within camera bounds
+                float x = Random.Range(-camWidth / 2f + spawnMargin, camWidth / 2f - spawnMargin);
+                float y = Random.Range(-camHeight / 2f + spawnMargin, camHeight / 2f - spawnMargin);
+                spawnPos = cam.transform.position + new Vector3(x, y, 0);
+                spawnPos.z = 0; // Ensure 2D positioning
+
+                attempts++;
+            }
+            while (Vector3.Distance(spawnPos, cam.transform.position) < minDistanceFromCenter && attempts < 10);
+
+            return spawnPos;
         }
 
-        // Fallback: spawn at random position around origin if no player found
+        // Fallback: spawn in a small area around origin
         Vector2 fallbackDirection = Random.insideUnitCircle.normalized;
-        return (Vector3)(fallbackDirection * spawnRadius);
+        return (Vector3)(fallbackDirection * 5f);
     }
 
     void NextWave()

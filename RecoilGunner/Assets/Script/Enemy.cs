@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     public Color hitColor = Color.red;
     public float hitFlashDuration = 0.1f;
+    public HealthBar healthBar;
 
     private Transform player;
     private Rigidbody2D rb;
@@ -55,6 +56,40 @@ public class Enemy : MonoBehaviour
             originalColor = spriteRenderer.color;
 
         health = maxHealth;
+
+        // Create health bar
+        SetupHealthBar();
+        UpdateHealthBar();
+    }
+
+    void SetupHealthBar()
+    {
+        if (healthBar == null)
+        {
+            // Check if health bar already exists
+            HealthBar existingHealthBar = GetComponentInChildren<HealthBar>();
+            if (existingHealthBar != null)
+            {
+                healthBar = existingHealthBar;
+                return;
+            }
+
+            GameObject healthBarObj = new GameObject("EnemyHealthBar");
+            healthBarObj.transform.SetParent(transform);
+            healthBar = healthBarObj.AddComponent<HealthBar>();
+            healthBar.isPlayerHealthBar = false;
+            healthBar.offsetY = 0.8f;
+            healthBar.barWidth = 0.8f;
+            healthBar.barHeight = 0.15f;
+        }
+    }
+
+    void UpdateHealthBar()
+    {
+        if (healthBar != null)
+        {
+            healthBar.UpdateHealthBar(health, maxHealth);
+        }
     }
 
     void Update()
@@ -125,6 +160,9 @@ public class Enemy : MonoBehaviour
         {
             StartCoroutine(FlashRed());
         }
+
+        // Update health bar
+        UpdateHealthBar();
 
         if (health <= 0)
         {
