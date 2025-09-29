@@ -4,21 +4,22 @@ using UnityEngine.UI;
 public class EnemyHealthBar : MonoBehaviour
 {
     [Header("Health Bar Settings")]
-    public float healthBarOffset = 1f; // Distance above enemy
-    public Vector2 healthBarSize = new Vector2(1f, 0.15f); // Width and height
+    public float healthBarOffset = 1f;
+    public Vector2 healthBarSize = new Vector2(1f, 0.15f);
     public Color healthColor = Color.green;
     public Color lowHealthColor = Color.red;
-    public Color backgroundColor = Color.black;
-    public float lowHealthThreshold = 0.3f; // When to turn red
+    public Color backgroundColor = new Color(0.2f, 0.2f, 0.2f, 0.8f);
+    public float lowHealthThreshold = 0.3f;
 
     [Header("Visibility")]
-    public bool alwaysVisible = false; // If false, only shows when damaged
-    public float hideDelay = 2f; // Seconds to hide after taking damage
-    public bool hideAtFullHealth = true; // Hide when at full health
+    public bool alwaysVisible = true;
+    public float hideDelay = 2f;
+    public bool hideAtFullHealth = false;
 
     private Canvas worldCanvas;
-    private GameObject healthBarObject;
-    private Image backgroundImage;
+    private GameObject healthBarBG;
+    private GameObject healthBarFill;
+    private Image bgImage;
     private Image fillImage;
     private Enemy enemyScript;
     private Camera mainCamera;
@@ -35,84 +36,81 @@ public class EnemyHealthBar : MonoBehaviour
 
         if (enemyScript == null)
         {
-            Debug.LogError("❌ EnemyHealthBar requires Enemy script on the same GameObject!");
+            Debug.LogError("❌ EnemyHealthBar requires Enemy script!");
             Destroy(this);
             return;
         }
 
-        // Initialize health values
         maxHealth = enemyScript.maxHealth;
         currentHealth = enemyScript.health;
 
         CreateHealthBar();
+        UpdateHealthBar();
     }
 
     void CreateHealthBar()
     {
-        // Create world space canvas
-        GameObject canvasObject = new GameObject("EnemyHealthCanvas");
-        canvasObject.transform.SetParent(transform);
+        // Create canvas
+        GameObject canvasObj = new GameObject("EnemyHealthCanvas");
+        canvasObj.transform.SetParent(transform);
+        canvasObj.transform.localPosition = Vector3.up * healthBarOffset;
 
-        worldCanvas = canvasObject.AddComponent<Canvas>();
+        worldCanvas = canvasObj.AddComponent<Canvas>();
         worldCanvas.renderMode = RenderMode.WorldSpace;
-        worldCanvas.sortingOrder = 10; // Above most game objects
+        worldCanvas.sortingLayerName = "Default"; // Change this if you have custom sorting layers
+        worldCanvas.sortingOrder = 3;
 
-        CanvasScaler scaler = canvasObject.AddComponent<CanvasScaler>();
-        scaler.dynamicPixelsPerUnit = 100;
+        RectTransform canvasRect = canvasObj.GetComponent<RectTransform>();
+        canvasRect.sizeDelta = healthBarSize * 100f;
+        canvasRect.localScale = Vector3.one * 0.01f;
 
-        // Position canvas above enemy
-        RectTransform canvasRect = canvasObject.GetComponent<RectTransform>();
-        canvasRect.sizeDelta = healthBarSize;
-        canvasRect.localPosition = Vector3.up * healthBarOffset;
-        canvasRect.localScale = Vector3.one * 0.01f; // Scale down for world space
+        // Create background
+        healthBarBG = new GameObject("Background");
+        healthBarBG.transform.SetParent(canvasObj.transform, false);
 
-        // Create health bar background
-        healthBarObject = new GameObject("HealthBar");
-        healthBarObject.transform.SetParent(canvasObject.transform, false);
+        RectTransform bgRect = healthBarBG.AddComponent<RectTransform>();
+        bgRect.anchorMin = Vector2.zero;
+        bgRect.anchorMax = Vector2.one;
+        bgRect.sizeDelta = Vector2.zero;
+        bgRect.anchoredPosition = Vector2.zero;
 
-        RectTransform healthBarRect = healthBarObject.AddComponent<RectTransform>();
-        healthBarRect.sizeDelta = Vector2.one * 100f; // Fill parent
-        healthBarRect.anchorMin = Vector2.zero;
-        healthBarRect.anchorMax = Vector2.one;
-        healthBarRect.offsetMin = Vector2.zero;
-        healthBarRect.offsetMax = Vector2.zero;
+        bgImage = healthBarBG.AddComponent<Image>();
+        bgImage.color = backgroundColor;
 
-        // Background image
-        backgroundImage = healthBarObject.AddComponent<Image>();
-        backgroundImage.color = backgroundColor;
+        // Create fill (the actual health bar)
+        healthBarFill = new GameObject("Fill");
+        healthBarFill.transform.SetParent(healthBarBG.transform, false);
 
-        // Create fill image (the actual health bar)
-        GameObject fillObject = new GameObject("Fill");
-        fillObject.transform.SetParent(healthBarObject.transform, false);
+        RectTransform fillRect = healthBarFill.AddComponent<RectTransform>();
+        fillRect.anchorMin = Vector2.zero;
+        fillRect.anchorMax = Vector2.one;
+        fillRect.sizeDelta = Vector2.zero;
+        fillRect.anchoredPosition = Vector2.zero;
 
-        RectTransform fillRect = fillObject.AddComponent<RectTransform>();
-        fillRect.sizeDelta = Vector2.one * 100f;
-        fillRect.anchorMin = new Vector2(0, 0);
-        fillRect.anchorMax = new Vector2(1, 1);
-        fillRect.offsetMin = Vector2.zero;
-        fillRect.offsetMax = Vector2.zero;
-
-        fillImage = fillObject.AddComponent<Image>();
+        fillImage = healthBarFill.AddComponent<Image>();
         fillImage.color = healthColor;
         fillImage.type = Image.Type.Filled;
         fillImage.fillMethod = Image.FillMethod.Horizontal;
+        fillImage.fillOrigin = (int)Image.OriginHorizontal.Left;
+        fillImage.fillAmount = 1f;
 
         // Set initial visibility
-        SetHealthBarVisibility(!hideAtFullHealth || !alwaysVisible);
+        SetHealthBarVisibility(alwaysVisible || !hideAtFullHealth);
+
+        Debug.Log($"✅ Enemy health bar created for {gameObject.name}");
     }
 
     void Update()
     {
-        if (enemyScript == null || healthBarObject == null) return;
+        if (enemyScript == null || worldCanvas == null) return;
 
-        // Update health values
+        // Update health
         int newHealth = enemyScript.health;
         if (newHealth != currentHealth)
         {
             currentHealth = newHealth;
             UpdateHealthBar();
 
-            // Show health bar when damaged
             if (!alwaysVisible)
             {
                 ShowHealthBar();
@@ -120,7 +118,7 @@ public class EnemyHealthBar : MonoBehaviour
             }
         }
 
-        // Handle hiding after delay
+        // Hide after delay
         if (!alwaysVisible && isVisible && hideTimer > 0)
         {
             hideTimer -= Time.deltaTime;
@@ -130,32 +128,34 @@ public class EnemyHealthBar : MonoBehaviour
                 {
                     HideHealthBar();
                 }
-                else if (!hideAtFullHealth)
-                {
-                    HideHealthBar();
-                }
             }
         }
 
-        // Face camera (billboard effect)
-        if (worldCanvas != null && mainCamera != null)
+        // Billboard effect (face camera)
+        if (mainCamera != null)
         {
-            worldCanvas.transform.LookAt(worldCanvas.transform.position + mainCamera.transform.rotation * Vector3.forward,
-                                        mainCamera.transform.rotation * Vector3.up);
+            worldCanvas.transform.rotation = Quaternion.LookRotation(
+                worldCanvas.transform.position - mainCamera.transform.position
+            );
         }
     }
 
     void UpdateHealthBar()
     {
-        if (fillImage == null) return;
+        if (fillImage == null || maxHealth <= 0) return;
 
-        // Calculate health percentage
-        float healthPercentage = (float)currentHealth / maxHealth;
-        fillImage.fillAmount = healthPercentage;
+        float healthPercent = (float)currentHealth / maxHealth;
+        fillImage.fillAmount = healthPercent;
 
         // Change color based on health
-        Color targetColor = Color.Lerp(lowHealthColor, healthColor, healthPercentage / lowHealthThreshold);
-        fillImage.color = healthPercentage <= lowHealthThreshold ? targetColor : healthColor;
+        if (healthPercent <= lowHealthThreshold)
+        {
+            fillImage.color = Color.Lerp(lowHealthColor, healthColor, healthPercent / lowHealthThreshold);
+        }
+        else
+        {
+            fillImage.color = healthColor;
+        }
     }
 
     public void ShowHealthBar()
@@ -171,13 +171,12 @@ public class EnemyHealthBar : MonoBehaviour
     void SetHealthBarVisibility(bool visible)
     {
         isVisible = visible;
-        if (healthBarObject != null)
+        if (worldCanvas != null)
         {
-            healthBarObject.SetActive(visible);
+            worldCanvas.gameObject.SetActive(visible);
         }
     }
 
-    // Public method for external scripts to trigger health bar display
     public void OnEnemyDamaged()
     {
         if (!alwaysVisible)
@@ -189,7 +188,6 @@ public class EnemyHealthBar : MonoBehaviour
 
     void OnDestroy()
     {
-        // Clean up when enemy is destroyed
         if (worldCanvas != null)
         {
             Destroy(worldCanvas.gameObject);

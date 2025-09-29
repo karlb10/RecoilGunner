@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      biscast_logo_0: 2310783569475473213
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

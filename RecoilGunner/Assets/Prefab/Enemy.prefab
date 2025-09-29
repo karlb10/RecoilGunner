@@ -156,10 +156,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a720ed7fd67444d4d85a35e3a4de9bb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthBarOffset: 1
-  healthBarSize: {x: 1, y: 0.15}
-  healthColor: {r: 0, g: 1, b: 0, a: 1}
-  lowHealthColor: {r: 1, g: 0, b: 0, a: 1}
+  healthBarOffset: 2
+  healthBarSize: {x: 2, y: 0.5}
+  healthColor: {r: 1, g: 0.008963013, b: 0, a: 1}
+  lowHealthColor: {r: 1, g: 0.77952445, b: 0, a: 1}
   backgroundColor: {r: 0, g: 0, b: 0, a: 1}
   lowHealthThreshold: 0.3
   alwaysVisible: 1

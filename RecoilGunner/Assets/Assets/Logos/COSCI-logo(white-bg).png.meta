@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      COSCI-logo(white-bg)_0: -3526838160428569650
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

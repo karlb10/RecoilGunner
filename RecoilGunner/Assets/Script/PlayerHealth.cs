@@ -4,7 +4,7 @@ using UnityEngine.Events;
 public class PlayerHealth : MonoBehaviour
 {
     [Header("Health Settings")]
-    public int maxHealth = 100;
+    public int maxHealth = 5; // Changed to 5 to match your 6 sprites (0-5)
     public float invulnerabilityDuration = 1f;
 
     [Header("Visual Feedback")]
@@ -12,8 +12,9 @@ public class PlayerHealth : MonoBehaviour
     public Color hitColor = Color.red;
     public float flashSpeed = 10f;
 
-    [Header("UI")]
-    public UIHealthBar uiHealthBar;
+    [Header("UI - Choose One")]
+    public SpriteHealthBar spriteHealthBar; // New sprite-based health bar
+    public UIHealthBar uiHealthBar; // Old fill-based health bar (optional)
 
     [Header("Events")]
     public UnityEvent<int> OnHealthChanged;
@@ -34,11 +35,17 @@ public class PlayerHealth : MonoBehaviour
         if (spriteRenderer != null)
             originalColor = spriteRenderer.color;
 
+        // Try to find health bar if not assigned
+        if (spriteHealthBar == null)
+            spriteHealthBar = FindObjectOfType<SpriteHealthBar>();
+
         if (uiHealthBar == null)
             uiHealthBar = FindObjectOfType<UIHealthBar>();
 
         UpdateHealthBar();
         OnHealthChanged?.Invoke(currentHealth);
+
+        Debug.Log($"✅ PlayerHealth initialized: {currentHealth}/{maxHealth}");
     }
 
     public void TakeDamage(int damage)
@@ -48,7 +55,7 @@ public class PlayerHealth : MonoBehaviour
         currentHealth -= damage;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
 
-        // Trigger camera shake when player takes damage
+        // Camera shake when player takes damage
         if (CameraShake.Instance != null)
         {
             CameraShake.Instance.ShakePlayerDamage();
@@ -56,6 +63,8 @@ public class PlayerHealth : MonoBehaviour
 
         OnHealthChanged?.Invoke(currentHealth);
         UpdateHealthBar();
+
+        Debug.Log($"💔 Player took {damage} damage! Health: {currentHealth}/{maxHealth}");
 
         if (currentHealth > 0)
         {
@@ -73,12 +82,23 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         OnHealthChanged?.Invoke(currentHealth);
         UpdateHealthBar();
+
+        Debug.Log($"💚 Player healed {amount}! Health: {currentHealth}/{maxHealth}");
     }
 
     void UpdateHealthBar()
     {
+        // Update sprite-based health bar (new system)
+        if (spriteHealthBar != null)
+        {
+            spriteHealthBar.UpdateHealth(currentHealth, maxHealth);
+        }
+
+        // Update old fill-based health bar (backward compatibility)
         if (uiHealthBar != null)
+        {
             uiHealthBar.UpdateHealth(currentHealth, maxHealth);
+        }
     }
 
     System.Collections.IEnumerator InvulnerabilityPeriod()
@@ -104,7 +124,7 @@ public class PlayerHealth : MonoBehaviour
 
         while (isInvulnerable && isFlashing)
         {
-            flashTimer += Time.unscaledDeltaTime * flashSpeed; // Use unscaled time
+            flashTimer += Time.unscaledDeltaTime * flashSpeed;
             spriteRenderer.color = Color.Lerp(originalColor, hitColor, (Mathf.Sin(flashTimer) + 1f) / 2f);
             yield return null;
         }
@@ -115,7 +135,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
-        // Trigger big camera shake for death
+        // Big camera shake for death
         if (CameraShake.Instance != null)
         {
             CameraShake.Instance.ShakeGameOver();
@@ -134,7 +154,27 @@ public class PlayerHealth : MonoBehaviour
     {
         if (other.CompareTag("Enemy") && !isInvulnerable)
         {
-            TakeDamage(10);
+            TakeDamage(1); // Changed to 1 damage since max health is now 5
         }
+    }
+
+    // Debug methods for testing
+    [ContextMenu("Take 1 Damage")]
+    void TestDamage()
+    {
+        TakeDamage(1);
+    }
+
+    [ContextMenu("Heal 1")]
+    void TestHeal()
+    {
+        Heal(1);
+    }
+
+    [ContextMenu("Set Full Health")]
+    void TestFullHealth()
+    {
+        currentHealth = maxHealth;
+        UpdateHealthBar();
     }
 }

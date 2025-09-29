@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: a421204f026642142b8be78d2366e89c
+guid: f40f307cbc7cdf64a8c3384311300ae5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -706380185902729712
-    second: cas-logo_0
+      213: 7714393824376855860
+    second: hb_0
+  - first:
+      213: 877491217614493001
+    second: hb_1
+  - first:
+      213: -5630456172945394772
+    second: hb_2
+  - first:
+      213: 4649945864778841716
+    second: hb_3
+  - first:
+      213: -5832558513477598766
+    second: hb_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +112,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cas-logo_0
+      name: hb_0
       rect:
         serializedVersion: 2
-        x: 23
-        y: 26
-        width: 932
-        height: 1038
+        x: 379
+        y: 1456
+        width: 827
+        height: 127
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +127,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 016b4e6a6fe6236f0800000000000000
-      internalID: -706380185902729712
+      spriteID: 43d13778f480f0b60800000000000000
+      internalID: 7714393824376855860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hb_1
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 1264
+        width: 827
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 945df6ffc997d2c00800000000000000
+      internalID: 877491217614493001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hb_2
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 1072
+        width: 827
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca33f2031f99cd1b0800000000000000
+      internalID: -5630456172945394772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hb_3
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 863
+        width: 827
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47e70f6a02de78040800000000000000
+      internalID: 4649945864778841716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: hb_4
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 625
+        width: 827
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2d1cc782fe69e0fa0800000000000000
+      internalID: -5832558513477598766
       vertices: []
       indices: 
       edges: []
@@ -134,8 +234,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      cas-logo_0: -706380185902729712
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

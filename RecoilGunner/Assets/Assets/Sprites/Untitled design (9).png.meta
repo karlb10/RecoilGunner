@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: a421204f026642142b8be78d2366e89c
+guid: b5eb19936f6147b429b39787923a06d4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -706380185902729712
-    second: cas-logo_0
+      213: -634308457515933244
+    second: Untitled design (9)_0
+  - first:
+      213: -1851642881713170999
+    second: Untitled design (9)_1
+  - first:
+      213: 2098762154361269376
+    second: Untitled design (9)_2
+  - first:
+      213: -6065934591135480355
+    second: Untitled design (9)_3
+  - first:
+      213: 2888465847772648037
+    second: Untitled design (9)_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +112,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cas-logo_0
+      name: Untitled design (9)_0
       rect:
         serializedVersion: 2
-        x: 23
-        y: 26
-        width: 932
-        height: 1038
+        x: 379
+        y: 1456
+        width: 827
+        height: 127
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +127,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 016b4e6a6fe6236f0800000000000000
-      internalID: -706380185902729712
+      spriteID: 4c1acbf81db7237f0800000000000000
+      internalID: -634308457515933244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Untitled design (9)_1
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 1264
+        width: 827
+        height: 127
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c51b980c94ad46e0800000000000000
+      internalID: -1851642881713170999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Untitled design (9)_2
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 1072
+        width: 827
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08cacb64f0d402d10800000000000000
+      internalID: 2098762154361269376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Untitled design (9)_3
+      rect:
+        serializedVersion: 2
+        x: 379
+        y: 863
+        width: 827
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd58d98c0a871dba0800000000000000
+      internalID: -6065934591135480355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Untitled design (9)_4
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 625
+        width: 827
+        height: 126
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56216528264e51820800000000000000
+      internalID: 2888465847772648037
       vertices: []
       indices: 
       edges: []
@@ -134,8 +234,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      cas-logo_0: -706380185902729712
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

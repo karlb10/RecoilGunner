@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: a421204f026642142b8be78d2366e89c
+guid: 09c4e07528bb06840b41535d849f653d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -706380185902729712
-    second: cas-logo_0
+      213: 4487095686719846100
+    second: game over!_0
+  - first:
+      213: -2014887981288607696
+    second: game over!_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +103,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: cas-logo_0
+      name: game over!_0
       rect:
         serializedVersion: 2
-        x: 23
-        y: 26
-        width: 932
-        height: 1038
+        x: 210
+        y: 1232
+        width: 1144
+        height: 365
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 016b4e6a6fe6236f0800000000000000
-      internalID: -706380185902729712
+      spriteID: 4d6bf10e0cd554e30800000000000000
+      internalID: 4487095686719846100
       vertices: []
       indices: 
       edges: []
@@ -125,7 +128,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 8122a0a548be0f245985e89d1db7497b
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +138,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      cas-logo_0: -706380185902729712
+      game over!_0: 4487095686719846100
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
