@@ -12,7 +12,7 @@ GameObject:
   m_Layer: 0
   m_Name: FirePoint
   m_TagString: Untagged
-  m_Icon: {fileID: 1206586993520771344, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -25,8 +25,8 @@ Transform:
   m_GameObject: {fileID: 3781118701533662619}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.444, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.29, y: -0.01, z: 0}
+  m_LocalScale: {x: 0.548412, y: 0.548412, z: 0.548412}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3870676341786926870}
@@ -56,14 +56,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7523888762353048007}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.7085851, w: 0.70562536}
-  m_LocalPosition: {x: 0.07, y: 0.91, z: 0}
-  m_LocalScale: {x: 0.7549289, y: 0.44900808, z: 1.2033}
+  m_LocalRotation: {x: -0, y: -0, z: -0.9999351, w: 0.011399955}
+  m_LocalPosition: {x: 2.09, y: 0.02, z: 0}
+  m_LocalScale: {x: 0.9951472, y: 0.59188247, z: 1.5861901}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3177006925991665897}
   m_Father: {fileID: 1564013914751567673}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90.24}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -178.694}
 --- !u!212 &3540941427607192053
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -148,9 +148,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8317387187906170271}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.7149627, w: 0.69916266}
+  m_LocalRotation: {x: 0, y: 0, z: -0.71496093, w: 0.6991644}
   m_LocalPosition: {x: -3.9595544, y: 0.13622452, z: 0}
-  m_LocalScale: {x: 0.39896, y: 0.39896, z: 0.39896}
+  m_LocalScale: {x: 0.27370068, y: 0.27370068, z: 0.27370068}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3870676341786926870}
@@ -200,7 +200,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -1187620688733344876, guid: d2da174304a536f4d993cb3164410c9e, type: 3}
+  m_Sprite: {fileID: -9215270179850364783, guid: 204a25c010a6e11439a8d78487a6cf21, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -226,7 +226,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -330,7 +330,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.42, y: 2.29}
+    oldSize: {x: 4.860873, y: 5.14}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

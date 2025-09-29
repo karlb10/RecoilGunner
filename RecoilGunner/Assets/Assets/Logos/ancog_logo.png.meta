@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 4205ba525c0b0344e8f071523b366441
+guid: 500a3e5569f2aa0419f01365a23e8723
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9173156883773270103
-    second: duwende_top-down_0
+      213: -820316624637869209
+    second: ancog_logo_0
+  - first:
+      213: 5380328474089162474
+    second: ancog_logo_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +103,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: duwende_top-down_0
+      name: ancog_logo_0
       rect:
         serializedVersion: 2
-        x: 57
-        y: 63
-        width: 297
-        height: 281
+        x: 0
+        y: 0
+        width: 256
+        height: 347
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9a7d3c96a6662b080800000000000000
-      internalID: -9173156883773270103
+      spriteID: 763cc194066ad94f0800000000000000
+      internalID: -820316624637869209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ancog_logo_1
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 0
+        width: 129
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae60101bd34caaa40800000000000000
+      internalID: 5380328474089162474
       vertices: []
       indices: 
       edges: []
@@ -125,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: f68cd9f9290c330428b0308403e8659d
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      duwende_top-down_0: -9173156883773270103
+      ancog_logo_0: -820316624637869209
+      ancog_logo_1: 5380328474089162474
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

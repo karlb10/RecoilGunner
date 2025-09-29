@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4205ba525c0b0344e8f071523b366441
+guid: 8ffe6bd55f7c63648be0b56cc4e81b55
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9173156883773270103
-    second: duwende_top-down_0
+      213: 2310783569475473213
+    second: biscast_logo_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: duwende_top-down_0
+      name: biscast_logo_0
       rect:
         serializedVersion: 2
-        x: 57
-        y: 63
-        width: 297
-        height: 281
+        x: 75
+        y: 18
+        width: 1853
+        height: 1853
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9a7d3c96a6662b080800000000000000
-      internalID: -9173156883773270103
+      spriteID: d3f0563d96d811020800000000000000
+      internalID: 2310783569475473213
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      duwende_top-down_0: -9173156883773270103
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

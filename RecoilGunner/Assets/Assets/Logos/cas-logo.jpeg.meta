@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4205ba525c0b0344e8f071523b366441
+guid: a421204f026642142b8be78d2366e89c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -9173156883773270103
-    second: duwende_top-down_0
+      213: -706380185902729712
+    second: cas-logo_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: duwende_top-down_0
+      name: cas-logo_0
       rect:
         serializedVersion: 2
-        x: 57
-        y: 63
-        width: 297
-        height: 281
+        x: 23
+        y: 26
+        width: 932
+        height: 1038
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9a7d3c96a6662b080800000000000000
-      internalID: -9173156883773270103
+      spriteID: 016b4e6a6fe6236f0800000000000000
+      internalID: -706380185902729712
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      duwende_top-down_0: -9173156883773270103
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

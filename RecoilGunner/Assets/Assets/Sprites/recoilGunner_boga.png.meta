@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      recoilGunner_boga_0: -3628392604843905949
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

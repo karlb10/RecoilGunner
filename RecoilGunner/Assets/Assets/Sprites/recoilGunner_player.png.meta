@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      recoilGunner_player_0: -83613140133828735
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
