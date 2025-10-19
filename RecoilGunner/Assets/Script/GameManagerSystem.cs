@@ -202,6 +202,12 @@ public class GameManager : MonoBehaviour
         gameOver = true;
         gameStarted = false;
 
+        // Stop all audio immediately
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StopAllAudio();
+        }
+
         // STOP THE GAME - but keep UI functional
         Time.timeScale = 0f; // This will stop physics and most game logic
 
@@ -273,7 +279,6 @@ public class GameManager : MonoBehaviour
 
         Debug.Log($"💀 GAME OVER! Everything stopped. Final Score: {currentScore}, High Score: {highScore}");
     }
-
     void UpdateScoreUI()
     {
         if (scoreText != null)

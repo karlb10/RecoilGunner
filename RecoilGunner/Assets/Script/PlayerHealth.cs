@@ -68,6 +68,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth > 0)
         {
+            AudioManager.Instance.PlayPlayerDamageSound();
             StartCoroutine(InvulnerabilityPeriod());
         }
         else
@@ -146,6 +147,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (GameManager.Instance != null)
         {
+            AudioManager.Instance.PlayPlayerDeathSound();
             GameManager.Instance.GameOver();
         }
     }

@@ -208,6 +208,7 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
+        AudioManager.Instance.PlayEnemyDeathSound();
         if (isDead) return; // Prevent multiple death calls
 
         isDead = true;

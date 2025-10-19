@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 783480b87534cb846a88add97293112f
+guid: 5f462f4e048db1742a2a7dddb026d973
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3526838160428569650
-    second: COSCI-logo(white-bg)_0
+      213: -5895508213608838821
+    second: COSCI LOGO (2)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: COSCI-logo(white-bg)_0
+      name: COSCI LOGO (2)_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 380
-        height: 379
+        width: 3120
+        height: 1755
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ecbec5b01672e0fc0800000000000000
-      internalID: -3526838160428569650
+      spriteID: b598275f382fe2ea0800000000000000
+      internalID: -5895508213608838821
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      COSCI-logo(white-bg)_0: -3526838160428569650
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

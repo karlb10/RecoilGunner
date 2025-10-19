@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: 7e0b5557c3e7bea45b3de3ea1e61ce53
+guid: c6941c1e6fd82c14abf87ae02a849dba
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1766344260728691918
-    second: BALATON LOGO_0
+      213: -2964101875924422150
+    second: gunner-game_paused-ui (1)_0
+  - first:
+      213: -3259325573701511150
+    second: gunner-game_paused-ui (1)_1
+  - first:
+      213: -4226876603740619560
+    second: gunner-game_paused-ui (1)_2
+  - first:
+      213: -1136906281865686843
+    second: gunner-game_paused-ui (1)_3
+  - first:
+      213: 7067739537920154341
+    second: gunner-game_paused-ui (1)_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +112,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BALATON LOGO_0
+      name: gunner-game_paused-ui (1)_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1920
-        height: 1080
+        x: 711
+        y: 1127
+        width: 2541
+        height: 1368
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +127,96 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 233673cd04fac77e0800000000000000
-      internalID: -1766344260728691918
+      spriteID: af1b47f5c056dd6d0800000000000000
+      internalID: -2964101875924422150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gunner-game_paused-ui (1)_1
+      rect:
+        serializedVersion: 2
+        x: 506
+        y: 194
+        width: 623
+        height: 666
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 218dc2cc8ac84c2d0800000000000000
+      internalID: -3259325573701511150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gunner-game_paused-ui (1)_2
+      rect:
+        serializedVersion: 2
+        x: 1261
+        y: 196
+        width: 623
+        height: 664
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8dc71a4bf1e1755c0800000000000000
+      internalID: -4226876603740619560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gunner-game_paused-ui (1)_3
+      rect:
+        serializedVersion: 2
+        x: 1999
+        y: 199
+        width: 627
+        height: 663
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c05c7e92c5e830f0800000000000000
+      internalID: -1136906281865686843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: gunner-game_paused-ui (1)_4
+      rect:
+        serializedVersion: 2
+        x: 2774
+        y: 194
+        width: 624
+        height: 666
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ead6bac9a7a51260800000000000000
+      internalID: 7067739537920154341
       vertices: []
       indices: 
       edges: []

@@ -287,14 +287,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   logoSprites:
   - {fileID: -6450829963557505660, guid: f311a58ab7e810e4896dce638f6183ce, type: 3}
-  - {fileID: 3423238785618839966, guid: a925f17eba4aebc4e86d7e465d389877, type: 3}
+  - {fileID: -3459141379966402227, guid: a6edf32766ce21d4cbf94b20b4cdde57, type: 3}
+  - {fileID: -5895508213608838821, guid: 5f462f4e048db1742a2a7dddb026d973, type: 3}
   - {fileID: -1748341956024527536, guid: 061580cd19089934cbbf5494a5d22594, type: 3}
-  - {fileID: -1766344260728691918, guid: 7e0b5557c3e7bea45b3de3ea1e61ce53, type: 3}
+  - {fileID: -7673493571883505399, guid: f0d9506fc09502a469cac0629f8be660, type: 3}
   - {fileID: -2570629953288280963, guid: d9d65b2dca50a994087087cf0055f0f7, type: 3}
   fadeInDuration: 0.8
   displayDuration: 1.5
   fadeOutDuration: 0.8
-  nextSceneName: GameScene
+  nextSceneName: MainMenu
   allowSkip: 1
   skipKey: 0
   introMusic: {fileID: 0}

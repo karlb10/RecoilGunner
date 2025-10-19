@@ -148,6 +148,12 @@ public class RecoilPlayerController : MonoBehaviour
         isCharging = true;
         chargeTime = 0f;
 
+        // Start looping charge sound
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StartChargeSound();
+        }
+
         // Apply instant recoil movement when starting to charge
         if (aimDirection != Vector2.zero)
         {
@@ -186,6 +192,12 @@ public class RecoilPlayerController : MonoBehaviour
 
         isCharging = false;
 
+        // Stop the looping charge sound
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.StopChargeSound();
+        }
+
         // Hide visual effects
         if (aimLine != null)
         {
@@ -207,6 +219,7 @@ public class RecoilPlayerController : MonoBehaviour
 
     void FireChargedShotgun()
     {
+        AudioManager.Instance.PlayFireSound();
         // Don't fire if game is over
         if (GameManager.Instance != null && GameManager.Instance.gameOver) return;
         if (aimDirection == Vector2.zero) return;
